@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  nginx:
+    ports:
+      - 80:80
+
+  mailcatcher:
+    ports:
+      - 1080:1080

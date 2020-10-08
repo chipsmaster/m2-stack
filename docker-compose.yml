@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+
+  mariadb:
+    image: mariadb:10.4
+    volumes:
+      - mariadb:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: magento
+      MYSQL_USER: magento
+      MYSQL_PASSWORD: magento
+
+  php-fpm:
+    build:
+      context: ./docker/php-fpm
+      args:
+        MAGENTO_USER_ID: "${HOST_USER_ID:?err}"
+        MAGENTO_USER_GROUP_ID: "${HOST_USER_GROUP_ID:?err}"
+    volumes:
+      - ./src:/var/www/magento
+      - magento-composer-cache:/home/magento/.composer
+
+  # Nginx run as same user as host to ensure it can read files in any case
+  nginx:
+    build:
+      context: ./docker/nginx
+      args:
+        MAGENTO_USER_ID: "${HOST_USER_ID:?err}"
+        MAGENTO_USER_GROUP_ID: "${HOST_USER_GROUP_ID:?err}"
+    volumes:
+      - ./src:/var/www/magento:ro
+    networks:
+      default:
+        aliases:
+          - www.m2-stack.local
+
+
+  mailcatcher:
+    image: schickling/mailcatcher
+
+  redis:
+    image: redis:5
+
+  elasticsearch:
+    image: elasticsearch:7.9.2
+    environment:
+      discovery.type: single-node
+
+volumes:
+  mariadb:
+  magento-composer-cache:
+
