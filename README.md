@@ -14,8 +14,7 @@ Also a template for M2 projects
 * When `src` contains magento code, install magento:
     * Get into the php-fpm container (`make bash`)
     * (Optional) deploy sample data (`bin/magento sampledata:deploy`)
-    * Run the install command line (`bin/magento setup:install --help` for reference)
-    * Example:
+    * Run the install command line, example:
     ```
     bin/magento setup:install \
         --base-url=http://www.m2-stack.local/ \
@@ -38,8 +37,26 @@ Remove any src contents and run the composer command inside the php-fpm containe
 
 ### Install sample data
 
-Run "deploy" command before doing installation to avoid doing setup:upgrade
-
+In case sample data not set up before installation :
 * Inside container (make bash):
     * `bin/magento sampledata:deploy`
     * `bin/magento setup:upgrade`
+
+### Post installation
+
+To use Redis (inside container):
+```
+bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=redis --cache-backend-redis-db=0
+bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2
+```
+
+Disable two factor authentication (inside container): 
+```
+bin/magento module:disable Magento_TwoFactorAuth
+```
+
+### Access
+
+* Front: http://www.m2-stack.local/
+* BO: (path given in env.php)
+* Mailcatcher: http://localhost:1080/
