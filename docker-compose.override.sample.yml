@@ -1,7 +1,17 @@
 version: '3'
 
 services:
+  mariadb:
+    ports:
+      - 3306:3306
+
+  php-fpm:
+    volumes:
+      - ./src:/var/www/magento
+
   nginx:
+    volumes:
+      - ./src:/var/www/magento:ro
     ports:
       - 80:80
 

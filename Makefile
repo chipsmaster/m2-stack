@@ -9,9 +9,11 @@ help:
 	@echo
 	@echo "  check      : Check and print final docker compose configuration."
 	@echo "  build      : (Re-)build containers."
-	@echo "  run        : Run containers in this terminal."
+	@echo "  up         : Run containers in this terminal."
 	@echo "  bash       : Start a shell on the php container with the magento user."
 	@echo "  flush-cache: Flush redis cache."
+	@echo "  xdebug-on  : Enable xdebug (requires restarting the stack for php web)."
+	@echo "  xdebug-off : Disable xdebug (requires restarting the stack for php web)."
 	@echo "  clear      : Clear containers and associated volumes."
 	@echo "  help       : Display this help."
 	@echo
@@ -38,6 +40,11 @@ bash:
 
 flush-cache:
 	docker-compose exec redis redis-cli flushall
+
+xdebug-on:
+	docker-compose exec php-fpm phpenmod xdebug
+xdebug-off:
+	docker-compose exec php-fpm phpdismod xdebug
 
 clear:
 	docker-compose down --volumes

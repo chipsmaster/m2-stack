@@ -21,7 +21,7 @@ RUN \
 	groupadd --gid $MAGENTO_USER_GROUP_ID $MAGENTO_USER && \
 	useradd --uid $MAGENTO_USER_ID --gid $MAGENTO_USER_GROUP_ID --create-home $MAGENTO_USER && \
 	# Website root
-	mkdir -p "$MAGENTO_BASE_DIR" && chown $MAGENTO_USER: "$MAGENTO_BASE_DIR"
+	mkdir -p "$MAGENTO_BASE_DIR" && chown $MAGENTO_USER: "$MAGENTO_BASE_DIR" && touch "$MAGENTO_BASE_DIR/nginx.conf.sample"
 
 # Add/overwrite files
 COPY files /

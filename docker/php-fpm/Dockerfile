@@ -55,6 +55,8 @@ RUN \
         git \
         net-tools procps
 
+# Disable xdebug by default
+RUN phpdismod xdebug
 
 ENV MAGENTO_USER magento
 ENV MAGENTO_USER_HOME /home/$MAGENTO_USER

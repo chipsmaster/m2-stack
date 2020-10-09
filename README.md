@@ -13,7 +13,7 @@ Also a template for M2 projects
 * Add any required hosts to /etc/hosts, by default only `127.0.0.1   www.m2-stack.local`
 * When `src` contains magento code, install magento:
     * Get into the php-fpm container (`make bash`)
-    * (Optional) deploy sample data (`bin/magento sampledata:deploy`)
+    * (Optional) Deploy sample data (`bin/magento sampledata:deploy`)
     * Run the install command line, example:
     ```
     bin/magento setup:install \
@@ -55,8 +55,26 @@ Disable two factor authentication (inside container):
 bin/magento module:disable Magento_TwoFactorAuth
 ```
 
+## Usage
+
 ### Access
 
+With default settings and installation command given as example:
+
 * Front: http://www.m2-stack.local/
-* BO: (path given in env.php)
+* BO: (path given in env.php) / admin / admin123
 * Mailcatcher: http://localhost:1080/
+ 
+### Xdebug
+
+It's **disabled** by default to have better performances (particularly with composer commands).
+
+Use `make xdebug-on` to enable it and **restart the stack** to make the change effective for php web (no need for php cli).
+
+Use a browser toolbar to start xdebug sessions.
+
+On first session, do the path mapping for the magento root (magento root is `/var/www/magento`)
+
+
+
+
