@@ -1,6 +1,6 @@
 # m2-stack
 
-Docker stack for magento 2.4
+Docker stack for magento 2.3
 
 Also a template for M2 projects
 
@@ -22,8 +22,7 @@ Also a template for M2 projects
         --admin-firstname=Magento --admin-lastname=User --admin-email=user@example.com \
         --admin-user=admin --admin-password=admin123 \
         --language=fr_FR --currency=EUR --timezone=Europe/Paris \
-        --use-rewrites=1 \
-        --search-engine=elasticsearch7 --elasticsearch-host=elasticsearch --elasticsearch-port=9200
+        --use-rewrites=1
     ```
 
 ### Setup M2 code by composer
@@ -31,7 +30,7 @@ Also a template for M2 projects
 Remove any src contents and run the composer command inside the php-fpm container
 * `rm -rf src/*`
 * `make bash`
-* Inside container: `composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition /var/www/magento`
+* Inside container: `composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.3.6 /var/www/magento`
 * Your keys will be asked (public key as username, private key as password) https://devdocs.magento.com/guides/v2.4/install-gde/prereq/connect-auth.html
 * Then install magento by command line
 
@@ -50,10 +49,7 @@ bin/magento setup:config:set --cache-backend=redis --cache-backend-redis-server=
 bin/magento setup:config:set --session-save=redis --session-save-redis-host=redis --session-save-redis-log-level=4 --session-save-redis-db=2
 ```
 
-Disable two factor authentication (inside container): 
-```
-bin/magento module:disable Magento_TwoFactorAuth
-```
+Setup elasticsearch:  https://devdocs.magento.com/guides/v2.3/config-guide/elasticsearch/configure-magento.html#configure-elasticsearch-within-magento
 
 ## Usage
 

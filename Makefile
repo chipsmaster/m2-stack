@@ -27,7 +27,6 @@ docker-compose.override.yml:
 
 src:
 	mkdir -pv src
-	touch src/nginx.conf.sample
 
 build: check
 	docker-compose build

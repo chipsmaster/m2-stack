@@ -1,7 +1,7 @@
 FROM debian:buster
 ARG MAGENTO_USER_ID
 ARG MAGENTO_USER_GROUP_ID
-ARG PHP_VER=7.4
+ARG PHP_VER=7.3
 
 # Base tools
 RUN \
@@ -15,7 +15,7 @@ RUN \
 	apt update
 
 # Install php/php-fpm and extensions
-# Requirements: https://devdocs.magento.com/guides/v2.4/install-gde/system-requirements-tech.html#required-php-extensions
+# Requirements: https://devdocs.magento.com/guides/v2.3/install-gde/prereq/php-settings.html
 # Additional: xdebug
 RUN \
     apt install --no-install-recommends -y \
@@ -36,11 +36,10 @@ RUN \
         php${PHP_VER}-soap \
         php${PHP_VER}-xsl \
         php${PHP_VER}-zip \
-        php${PHP_VER}-sockets \
         php${PHP_VER}-xdebug
 
 # Composer
-RUN curl -sS 'https://getcomposer.org/installer' | php && mv composer.phar /usr/local/bin/composer
+RUN curl -sS 'https://getcomposer.org/installer' | php -- --version=1.10.16 --filename=composer --install-dir=/usr/local/bin
 
 # UTF-8 locale
 RUN apt install -y locales && locale-gen C.UTF-8
@@ -91,4 +90,4 @@ RUN \
 	# Required to allow fpm to run
 	mkdir -pv /run/php
 
-CMD [ "php-fpm7.4", "--fpm-config", "/etc/php/7.4/fpm/php-fpm.conf", "--nodaemonize", "--force-stderr" ]
+CMD [ "php-fpm7.3", "--fpm-config", "/etc/php/7.3/fpm/php-fpm.conf", "--nodaemonize", "--force-stderr" ]

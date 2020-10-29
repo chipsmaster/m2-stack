@@ -3,7 +3,7 @@ version: '3'
 services:
 
   mariadb:
-    image: mariadb:10.4
+    image: mariadb:10.2
     volumes:
       - mariadb:/var/lib/mysql
     environment:
@@ -41,7 +41,7 @@ services:
     image: redis:5
 
   elasticsearch:
-    image: elasticsearch:7.9.2
+    image: elasticsearch:7.6.2
     environment:
       discovery.type: single-node
 
