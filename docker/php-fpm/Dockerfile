@@ -40,7 +40,7 @@ RUN \
         php${PHP_VER}-xdebug
 
 # Composer
-RUN curl -sS 'https://getcomposer.org/installer' | php && mv composer.phar /usr/local/bin/composer
+RUN curl -sS 'https://getcomposer.org/installer' | php -- --version=1.10.16 --filename=composer --install-dir=/usr/local/bin
 
 # UTF-8 locale
 RUN apt install -y locales && locale-gen C.UTF-8
