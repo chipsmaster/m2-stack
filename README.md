@@ -55,6 +55,11 @@ Disable two factor authentication (inside container):
 bin/magento module:disable Magento_TwoFactorAuth
 ```
 
+In case nginx is lost and shows a 404 after installation, reload its config:
+```
+docker-compose exec nginx nginx -s reload
+```
+
 ## Usage
 
 ### Access

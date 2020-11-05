@@ -39,6 +39,11 @@ RUN \
         php${PHP_VER}-sockets \
         php${PHP_VER}-xdebug
 
+# Npm & grunt
+RUN \
+    apt install -y npm && \
+    npm install -g grunt-cli
+
 # Composer
 RUN curl -sS 'https://getcomposer.org/installer' | php -- --version=1.10.16 --filename=composer --install-dir=/usr/local/bin
 
